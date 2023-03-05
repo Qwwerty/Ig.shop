@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiShoppingBag } from "react-icons/fi";
 
 import { useKeenSlider } from "keen-slider/react";
 
@@ -60,8 +60,16 @@ export default function Home({ products }: HomeProps) {
       </Head>
 
       <HomeContainer ref={sliderRef}>
-        {currentSlide > 0 && (
-          <FiChevronLeft onClick={handleMoveSlideLeft} size={48} />
+        {loaded && instanceRef.current && (
+          <>
+            {currentSlide > 0 && (
+              <FiChevronLeft
+                onClick={handleMoveSlideLeft}
+                size={48}
+                className="arrow arrow-left"
+              />
+            )}
+          </>
         )}
 
         <NavigationContainer className="keen-slider">
@@ -75,17 +83,31 @@ export default function Home({ products }: HomeProps) {
                 <Image src={product.imageUrl} width={520} height={480} alt="" />
 
                 <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+
+                  <button className="btn-shopping">
+                    <FiShoppingBag size={32} />
+                  </button>
                 </footer>
               </Product>
             </Link>
           ))}
-        </NavigationContainer>
 
-        {currentSlide < (products.length - 1) && (
-          <FiChevronRight onClick={handleMoveSlideRight} size={48} />
-        )}
+          {loaded && instanceRef.current && (
+            <>
+              {currentSlide < products.length - 1 && (
+                <FiChevronRight
+                  onClick={handleMoveSlideRight}
+                  size={48}
+                  className="arrow arrow-right"
+                />
+              )}
+            </>
+          )}
+        </NavigationContainer>
       </HomeContainer>
     </>
   );

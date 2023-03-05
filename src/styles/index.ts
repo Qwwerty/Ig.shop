@@ -16,6 +16,7 @@ export const {
 
       gray100: "#e1e1e6",
       gray300: "#c4c4cc",
+      gray500: "8D8D99",
       gray800: "#202024",
       gray900: "#121214",
 

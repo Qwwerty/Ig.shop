@@ -7,17 +7,17 @@ export const HomeContainer = styled("main", {
   marginLeft: "auto",
   position: "relative",
 
-  svg: {
+  ".arrow": {
     position: "absolute",
     zIndex: 1,
-    cursor: 'pointer',
+    cursor: "pointer",
 
-    "&:first-child": {
+    "&.arrow-left": {
       bottom: "50%",
       left: "16px",
     },
 
-    "&:last-child": {
+    "&.arrow-right": {
       bottom: "50%",
       right: "16px",
     },
@@ -65,17 +65,42 @@ export const Product = styled("div", {
     alignItems: "center",
     justifyContent: "space-between",
 
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
 
-    strong: {
-      fontSize: "$lg",
-      color: "$gray100",
+    div: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 4,
+
+      strong: {
+        fontSize: "$lg",
+        color: "$gray100",
+      },
+
+      span: {
+        fontSize: "$xl",
+        fontWeight: "bold",
+        color: "$green300",
+      },
     },
 
-    span: {
-      fontSize: "$xl",
-      fontWeight: "bold",
-      color: "$green300",
+    button: {
+      width: 56,
+      height: 56,
+      borderRadius: 6,
+      backgroundColor: "$green500",
+      border: 0,
+      outline: "none",
+      cursor: "pointer",
+
+      "&:hover": {
+        opacity: 0.8,
+        transition: "opacity 0.2s ease-in-out",
+      },
+
+      svg: {
+        color: "$white",
+      },
     },
   },
 
