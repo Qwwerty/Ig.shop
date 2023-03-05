@@ -2,10 +2,8 @@ import type { AppProps } from "next/app";
 import { CartProvider } from "use-shopping-cart";
 import { globalStyles } from "@/styles/global";
 
-import logoImg from "../assets/logo.svg";
-import { Container, Header, IconContainer } from "@/styles/pages/app";
-import Image from "next/image";
-import { FiShoppingBag } from "react-icons/fi";
+import { Container } from "@/styles/pages/app";
+import Layout from "@/components/Layout";
 
 globalStyles();
 
@@ -23,15 +21,9 @@ export default function App({ Component, pageProps }: AppProps) {
       shouldPersist
     >
       <Container>
-        <Header>
-          <Image src={logoImg} alt="" />
-
-          <IconContainer>
-            <FiShoppingBag size={24} />
-          </IconContainer>
-        </Header>
-
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Container>
     </CartProvider>
   );
