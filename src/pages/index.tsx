@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { FiChevronLeft, FiChevronRight, FiShoppingBag } from "react-icons/fi";
+import { ArrowLeft, ArrowRight, Handbag } from "@phosphor-icons/react";
 
 import { useKeenSlider } from "keen-slider/react";
 
@@ -63,7 +63,7 @@ export default function Home({ products }: HomeProps) {
         {loaded && instanceRef.current && (
           <>
             {currentSlide > 0 && (
-              <FiChevronLeft
+              <ArrowLeft
                 onClick={handleMoveSlideLeft}
                 size={48}
                 className="arrow arrow-left"
@@ -89,7 +89,7 @@ export default function Home({ products }: HomeProps) {
                   </div>
 
                   <button className="btn-shopping">
-                    <FiShoppingBag size={32} />
+                    <Handbag size={32} />
                   </button>
                 </footer>
               </Product>
@@ -99,7 +99,7 @@ export default function Home({ products }: HomeProps) {
           {loaded && instanceRef.current && (
             <>
               {currentSlide < products.length - 1 && (
-                <FiChevronRight
+                <ArrowRight
                   onClick={handleMoveSlideRight}
                   size={48}
                   className="arrow arrow-right"

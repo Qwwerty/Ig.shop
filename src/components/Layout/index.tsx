@@ -1,8 +1,14 @@
-import { Header, IconContainer, IconCounterContainer } from "@/styles/pages/app";
-import Image from "next/image";
 import { ReactNode } from "react";
-import { FiShoppingBag } from "react-icons/fi";
+import {
+  Header,
+  IconContainer,
+  IconCounterContainer,
+} from "@/styles/pages/app";
 import { useShoppingCart } from "use-shopping-cart";
+import Image from "next/image";
+import { Handbag } from "@phosphor-icons/react";
+import { ModalShoppingCart } from "../ModalShoppingCart";
+
 import logoImg from "../../assets/logo.svg";
 
 interface LayoutProps {
@@ -21,15 +27,16 @@ export default function Layout({ children }: LayoutProps) {
 
         {hasItemsInCart ? (
           <IconContainer count-indicator={cartCount}>
-            <FiShoppingBag size={24} />
+            <Handbag size={24} />
           </IconContainer>
         ) : (
           <IconCounterContainer>
-            <FiShoppingBag size={24} />
+            <Handbag size={24} />
           </IconCounterContainer>
         )}
       </Header>
       {children}
+      <ModalShoppingCart />
     </>
   );
 }
