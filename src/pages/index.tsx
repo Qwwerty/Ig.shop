@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Handbag } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight, Handbag } from "@phosphor-icons/react";
 
 import { useKeenSlider } from "keen-slider/react";
 
@@ -63,7 +63,7 @@ export default function Home({ products }: HomeProps) {
         {loaded && instanceRef.current && (
           <>
             {currentSlide > 0 && (
-              <ArrowLeft
+              <CaretLeft
                 onClick={handleMoveSlideLeft}
                 size={48}
                 className="arrow arrow-left"
@@ -99,7 +99,7 @@ export default function Home({ products }: HomeProps) {
           {loaded && instanceRef.current && (
             <>
               {currentSlide < products.length - 1 && (
-                <ArrowRight
+                <CaretRight
                   onClick={handleMoveSlideRight}
                   size={48}
                   className="arrow arrow-right"

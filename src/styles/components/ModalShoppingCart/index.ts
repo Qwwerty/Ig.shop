@@ -1,20 +1,40 @@
+import { keyframes } from "@stitches/react";
 import { styled } from "../..";
+
+const fadeIn = keyframes({
+  "0%": { right: "-30rem" },
+  "100%": { right: 0 },
+});
+
+const fadeOut = keyframes({
+  "0%": { right: 0 },
+  "100%": { right: "-35rem" },
+});
 
 export const Container = styled("main", {
   position: "absolute",
+  left: 0,
+  top: 0,
+  overflow: "hidden",
+  width: "100%",
+  minHeight: "100vh",
+  zIndex: 2,
+});
+
+export const Wrapper = styled("div", {
+  position: "absolute",
   top: 0,
   right: 0,
-  zIndex: 2,
 
   width: "30rem",
   height: "100%",
-  padding: "4.5rem 3rem 3rem 3rem",
   backgroundColor: "$gray800",
   boxShadow: "-4px 0px 30px rgba(0, 0, 0, 0.8)",
 
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  padding: "4.5rem 3rem 3rem 3rem",
 
   svg: {
     position: "absolute",
@@ -30,6 +50,15 @@ export const Container = styled("main", {
       color: "$gray300",
       transition: "color 0.2s",
     },
+  },
+
+  "animation-name": `${fadeIn}`,
+  "animation-duration": "2s",
+
+  "&.closing": {
+    "animation-name": `${fadeOut}`,
+    "animation-duration": "2s",
+    "animation-fill-mode": "forwards",
   },
 });
 

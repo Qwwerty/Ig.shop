@@ -28,9 +28,19 @@ export const IconContainer = styled("button", {
   cursor: "pointer",
   position: "relative",
 
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  svg: {
+    color: "$gray500",
+  },
+
   "&:hover": {
-    opacity: "0.7",
-    transition: "opacity 0.2s ease-in ease-out",
+    transition: "color 0.2s ease-in ease-out",
+    svg: {
+      color: "$gray300",
+    },
   },
 
   "&::before": {
@@ -51,14 +61,6 @@ export const IconContainer = styled("button", {
     fontWeight: 700,
     fontSize: "0.875rem",
     color: "$white",
-  },
-
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-
-  svg: {
-    color: "$gray500",
   },
 });
 

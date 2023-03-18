@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import {
   Header,
   IconContainer,
@@ -16,9 +16,14 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartCount } = useShoppingCart();
 
   const hasItemsInCart = cartCount !== undefined && cartCount > 0;
+
+  function handleOpenCart() {
+    setIsModalOpen(!isModalOpen);
+  }
 
   return (
     <>
@@ -26,17 +31,17 @@ export default function Layout({ children }: LayoutProps) {
         <Image src={logoImg} alt="" />
 
         {hasItemsInCart ? (
-          <IconContainer count-indicator={cartCount}>
+          <IconContainer onClick={handleOpenCart} count-indicator={cartCount}>
             <Handbag size={24} />
           </IconContainer>
         ) : (
-          <IconCounterContainer>
+          <IconCounterContainer onClick={handleOpenCart}>
             <Handbag size={24} />
           </IconCounterContainer>
         )}
       </Header>
       {children}
-      <ModalShoppingCart />
+      {isModalOpen && <ModalShoppingCart onToggle={handleOpenCart} />}
     </>
   );
 }
