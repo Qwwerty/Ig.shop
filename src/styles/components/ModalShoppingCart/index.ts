@@ -8,7 +8,7 @@ const fadeIn = keyframes({
 
 const fadeOut = keyframes({
   "0%": { right: 0 },
-  "100%": { right: "-35rem" },
+  "100%": { right: "-31rem" },
 });
 
 export const Container = styled("main", {
@@ -19,6 +19,14 @@ export const Container = styled("main", {
   width: "100%",
   minHeight: "100vh",
   zIndex: 2,
+
+  "&.opening": {
+    display: "initial",
+  },
+
+  "&.closing": {
+    display: "none",
+  },
 });
 
 export const Wrapper = styled("div", {
@@ -36,7 +44,7 @@ export const Wrapper = styled("div", {
   justifyContent: "space-between",
   padding: "4.5rem 3rem 3rem 3rem",
 
-  svg: {
+  ".shopping-cart-modal-close": {
     position: "absolute",
     top: 24,
     right: 24,
@@ -52,8 +60,11 @@ export const Wrapper = styled("div", {
     },
   },
 
-  "animation-name": `${fadeIn}`,
-  "animation-duration": "2s",
+  "&.opening": {
+    "animation-name": `${fadeIn}`,
+    "animation-duration": "1.5s",
+    "animation-fill-mode": "forwards",
+  },
 
   "&.closing": {
     "animation-name": `${fadeOut}`,
@@ -89,7 +100,6 @@ export const ShoppingCartItem = styled("div", {
   display: "flex",
   gap: "1.25rem",
 
-  width: "4.16rem",
   minHeight: "5.875rem !important",
   maxHeight: "5.875rem !important",
   height: "100%",
@@ -129,18 +139,23 @@ export const ShoppingCartItem = styled("div", {
       lineHeight: "1.8rem",
     },
 
-    button: {
-      marginTop: "0.5rem",
+    ".shopping-cart-item-about-counter": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "6rem",
+      height: "2.375rem",
+      padding: "0 0.5rem",
 
-      width: "4.0625rem",
-      height: "1.625rem",
-      backgroundColor: "transparent",
-      border: 0,
-      outilne: "none",
+      svg: {
+        color: "$green500",
+        cursor: "pointer",
 
-      fontWeight: 700,
-      fontSize: "1rem",
-      color: "$green500",
+        "&:hover": {
+          color: "$green300",
+          transition: "color 0.2s",
+        },
+      },
     },
   },
 });

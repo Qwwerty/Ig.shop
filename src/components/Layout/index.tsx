@@ -31,17 +31,22 @@ export default function Layout({ children }: LayoutProps) {
         <Image src={logoImg} alt="" />
 
         {hasItemsInCart ? (
-          <IconContainer onClick={handleOpenCart} count-indicator={cartCount}>
+          <IconContainer
+            onClick={handleOpenCart}
+            disabled={isModalOpen}
+            count-indicator={cartCount}
+          >
             <Handbag size={24} />
           </IconContainer>
         ) : (
-          <IconCounterContainer onClick={handleOpenCart}>
+          <IconCounterContainer onClick={handleOpenCart} disabled={isModalOpen}>
             <Handbag size={24} />
           </IconCounterContainer>
         )}
       </Header>
       {children}
-      {isModalOpen && <ModalShoppingCart onToggle={handleOpenCart} />}
+
+      <ModalShoppingCart isOpen={isModalOpen} onToggle={handleOpenCart} />
     </>
   );
 }

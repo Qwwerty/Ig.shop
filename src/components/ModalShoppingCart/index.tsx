@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { X } from "@phosphor-icons/react";
+import { Minus, Plus, X } from "@phosphor-icons/react";
 import { useKeenSlider } from "keen-slider/react";
 import {
   Container,
@@ -10,15 +10,24 @@ import {
   ShoppingSliderContainer,
 } from "@/styles/components/ModalShoppingCart";
 
-import tshirtImg from "../../assets/camisetas/1.png";
-import { useState } from "react";
+import { useShoppingCart } from "use-shopping-cart";
 
 interface ModalShoppingCartProps {
   onToggle: () => void;
+  isOpen: boolean;
 }
 
-export function ModalShoppingCart({ onToggle }: ModalShoppingCartProps) {
-  const [isClosing, setIsClosing] = useState(false);
+export function ModalShoppingCart({
+  onToggle,
+  isOpen,
+}: ModalShoppingCartProps) {
+  const {
+    cartDetails,
+    formattedTotalPrice,
+    cartCount,
+    incrementItem,
+    decrementItem,
+  } = useShoppingCart();
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: false,
     vertical: true,
@@ -28,18 +37,33 @@ export function ModalShoppingCart({ onToggle }: ModalShoppingCartProps) {
     },
   });
 
-  function toggle() {
-    setIsClosing(true);
+  const countItems =
+    cartCount === 1 ? `${cartCount} item` : `${cartCount} itens`;
 
-    setTimeout(() => {
-      onToggle();
-    }, 2000);
+  function toggle() {
+    onToggle();
   }
 
+  function handleOutside(event: React.MouseEvent<HTMLElement>) {
+    const target = event.target as HTMLElement;
+
+    if (!target.matches(".shopping-cart-modal-container")) {
+      return;
+    }
+
+    onToggle();
+  }
+
+  const items = Object.values(cartDetails || []);
+  const classToggle = isOpen ? "opening" : "closing";
+
   return (
-    <Container>
-      <Wrapper className={`${isClosing ? "closing" : ""}`.trim()}>
-        <X onClick={toggle} />
+    <Container
+      onClick={handleOutside}
+      className={`shopping-cart-modal-container ${classToggle}`}
+    >
+      <Wrapper className={`${classToggle}`.trim()}>
+        <X onClick={toggle} className="shopping-cart-modal-close" />
         <ShoppingCart>
           <h6>Sacola de compras</h6>
 
@@ -47,16 +71,22 @@ export function ModalShoppingCart({ onToggle }: ModalShoppingCartProps) {
             ref={ref}
             className="keen-slider shopping-cart-slider-container"
           >
-            <ShoppingCartItem className="keen-slider__slide">
-              <div className="shopping-cart-item-image">
-                <Image src={tshirtImg} alt="" />
-              </div>
-              <div className="shopping-cart-item-about">
-                <span>Camiseta Beyond the Limits</span>
-                <span>R$ 79,90</span>
-                <button>Remover</button>
-              </div>
-            </ShoppingCartItem>
+            {items.map((item) => (
+              <ShoppingCartItem className="keen-slider__slide" key={item.id}>
+                <div className="shopping-cart-item-image">
+                  <Image src={item.image!} width={94} height={94} alt="" />
+                </div>
+                <div className="shopping-cart-item-about">
+                  <span>{item.name}</span>
+                  <span>{item.formattedValue}</span>
+                  <div className="shopping-cart-item-about-counter">
+                    <Minus onClick={() => decrementItem(item.id)} />
+                    <span>{item.quantity}</span>
+                    <Plus onClick={() => incrementItem(item.id)} />
+                  </div>
+                </div>
+              </ShoppingCartItem>
+            ))}
           </ShoppingSliderContainer>
         </ShoppingCart>
 
@@ -64,12 +94,12 @@ export function ModalShoppingCart({ onToggle }: ModalShoppingCartProps) {
           <article>
             <div>
               <span>Quantidade</span>
-              <span>3 itens</span>
+              <span>{countItems}</span>
             </div>
 
             <div>
               <span>Valor total</span>
-              <span>R$ 270,00</span>
+              <span>{formattedTotalPrice}</span>
             </div>
           </article>
 
