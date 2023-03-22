@@ -227,5 +227,10 @@ export const ShoppingCheckout = styled("section", {
       backgroundColor: "$green300",
       transition: "background 0.2s ",
     },
+
+    "&:disabled": {
+      opacity: "0.6",
+      cursor: "not-allowed",
+    },
   },
 });

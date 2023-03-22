@@ -4,8 +4,15 @@ import { globalStyles } from "@/styles/global";
 
 import { Container } from "@/styles/pages/app";
 import Layout from "@/components/Layout";
+import NProgress from "nprogress";
+import { Router } from "next/router";
 
 globalStyles();
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

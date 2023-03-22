@@ -11,6 +11,7 @@ import {
 } from "@/styles/components/ModalShoppingCart";
 
 import { useShoppingCart } from "use-shopping-cart";
+import axios from "axios";
 
 interface ModalShoppingCartProps {
   onToggle: () => void;
@@ -37,6 +38,8 @@ export function ModalShoppingCart({
     },
   });
 
+  const items = Object.values(cartDetails || []);
+  const classToggle = isOpen ? "opening" : "closing";
   const countItems =
     cartCount === 1 ? `${cartCount} item` : `${cartCount} itens`;
 
@@ -54,9 +57,23 @@ export function ModalShoppingCart({
     onToggle();
   }
 
-  const items = Object.values(cartDetails || []);
-  const classToggle = isOpen ? "opening" : "closing";
+  async function handleCheckout() {
+    const itemsToStripe = items.map((item) => ({
+      price: item.price_id,
+      quantity: item.quantity,
+    }));
 
+    try {
+      const response = await axios.post("/api/checkout", {
+        line_items: itemsToStripe,
+      });
+
+      const { checkoutUrl } = response.data;
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Container
       onClick={handleOutside}
@@ -103,7 +120,9 @@ export function ModalShoppingCart({
             </div>
           </article>
 
-          <button>Finalizar compra</button>
+          <button disabled={cartCount === 0} onClick={handleCheckout}>
+            Finalizar compra
+          </button>
         </ShoppingCheckout>
       </Wrapper>
     </Container>

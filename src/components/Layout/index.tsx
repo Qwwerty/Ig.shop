@@ -4,6 +4,7 @@ import {
   IconContainer,
   IconCounterContainer,
 } from "@/styles/pages/app";
+import { useRouter } from "next/router";
 import { useShoppingCart } from "use-shopping-cart";
 import Image from "next/image";
 import { Handbag } from "@phosphor-icons/react";
@@ -18,6 +19,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { cartCount } = useShoppingCart();
+  const { asPath } = useRouter();
 
   const hasItemsInCart = cartCount !== undefined && cartCount > 0;
 
@@ -25,24 +27,35 @@ export default function Layout({ children }: LayoutProps) {
     setIsModalOpen(!isModalOpen);
   }
 
+  function ButtonCart() {
+    if (asPath.match("success")) {
+      return;
+    }
+
+    if (hasItemsInCart) {
+      return (
+        <IconContainer
+          onClick={handleOpenCart}
+          disabled={isModalOpen}
+          count-indicator={cartCount}
+        >
+          <Handbag size={24} />
+        </IconContainer>
+      );
+    }
+
+    return (
+      <IconCounterContainer onClick={handleOpenCart} disabled={isModalOpen}>
+        <Handbag size={24} />
+      </IconCounterContainer>
+    );
+  }
+
   return (
     <>
       <Header>
         <Image src={logoImg} alt="" />
-
-        {hasItemsInCart ? (
-          <IconContainer
-            onClick={handleOpenCart}
-            disabled={isModalOpen}
-            count-indicator={cartCount}
-          >
-            <Handbag size={24} />
-          </IconContainer>
-        ) : (
-          <IconCounterContainer onClick={handleOpenCart} disabled={isModalOpen}>
-            <Handbag size={24} />
-          </IconCounterContainer>
-        )}
+        <ButtonCart />
       </Header>
       {children}
 

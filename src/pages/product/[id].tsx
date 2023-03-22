@@ -1,4 +1,6 @@
 import { stripe } from "@/lib/stripe";
+import { useRouter } from "next/router";
+import NProgress from "nprogress";
 import {
   ImageContainer,
   ProductContainer,
@@ -17,6 +19,7 @@ interface ProductProps {
     imageUrl: string;
     price: number;
     priceFormatted: string;
+    priceId: string;
     currency: string;
     description: string;
     defaultPriceId: string;
@@ -25,33 +28,22 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const { addItem } = useShoppingCart();
+  const router = useRouter();
 
   async function handleBuyProduct() {
+    NProgress.start();
     addItem({
       id: product.id,
       name: product.name,
       description: product.description,
       price: product.price,
+      price_id: product.priceId,
       currency: product.currency,
       image: product.imageUrl,
     });
 
-    /* try {
-      setIsCreatingCheckoutSession(true);
-
-      const response = await axios.post("/api/checkout", {
-        priceId: product.defaultPriceId,
-      });
-
-      const { checkoutUrl } = response.data;
-
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setIsCreatingCheckoutSession(false);
-
-      alert("Falha ao redirecionar ao checkout!");
-    }
-    */
+    await router.push("/");
+    NProgress.done();
   }
 
   return (
@@ -113,6 +105,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           currency: "BRL",
         }).format(price.unit_amount! / 100),
         price: price.unit_amount,
+        priceId: price.id,
         description: product.description,
         defaultPriceId: price.id,
         currency: price.currency,
