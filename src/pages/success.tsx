@@ -27,7 +27,7 @@ export default function Success({
 
   useEffect(() => {
     clearCart();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -46,14 +46,14 @@ export default function Success({
           ))}
         </ImageContainer>
 
-        <h1>Compra efetuada!</h1>
+        <h1>Purchase made!</h1>
 
         <p>
-          Uhuul <strong>{customerName}</strong>, sua compra de {textTShirt} já
-          está a caminho da sua casa.
+          Uhuul <strong>{customerName}</strong>, your purchase {textTShirt} is
+          already on the way to your house.
         </p>
 
-        <Link href="/">Voltar ao catálogo</Link>
+        <Link href="/">Back to catalog</Link>
       </SuccessContainer>
     </>
   );

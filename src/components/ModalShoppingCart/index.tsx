@@ -41,7 +41,7 @@ export function ModalShoppingCart({
   const items = Object.values(cartDetails || []);
   const classToggle = isOpen ? "opening" : "closing";
   const countItems =
-    cartCount === 1 ? `${cartCount} item` : `${cartCount} itens`;
+    cartCount === 1 ? `${cartCount} item` : `${cartCount} items`;
 
   function toggle() {
     onToggle();
@@ -82,7 +82,7 @@ export function ModalShoppingCart({
       <Wrapper className={`${classToggle}`.trim()}>
         <X onClick={toggle} className="shopping-cart-modal-close" />
         <ShoppingCart>
-          <h6>Sacola de compras</h6>
+          <h6>Cart</h6>
 
           <ShoppingSliderContainer
             ref={ref}
@@ -110,12 +110,12 @@ export function ModalShoppingCart({
         <ShoppingCheckout>
           <article>
             <div>
-              <span>Quantidade</span>
+              <span>Quantity</span>
               <span>{countItems}</span>
             </div>
 
             <div>
-              <span>Valor total</span>
+              <span>Amount</span>
               <span>{formattedTotalPrice}</span>
             </div>
           </article>
