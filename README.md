@@ -19,8 +19,6 @@
 
 </p>
 
----
-
 <p align="center">
   <a href="#dart-sobre">About</a> &#xa0; | &#xa0; 
   <a href="#rocket-tecnologias">Technologies</a> &#xa0; | &#xa0;
@@ -31,11 +29,11 @@
 
 <br>
 
-## :dart: About ##
+## :dart: About
 
 Shopping cart system with Stripe Js integration. The user will be able to choose several products that make up his cart, after all the choices, the payment will be made with Stripe.
 
-## :rocket: Technologies ##
+## :rocket: Technologies
 
 The following technologies were used in the project:
 
@@ -48,15 +46,13 @@ The following technologies were used in the project:
 - [NProgress](https://ricostacruz.com/nprogress/)
 - [Axios](https://axios-http.com/)
 
-
-
-## :white_check_mark: Requirements ##
+## :white_check_mark: Requirements
 
 - [Node](https://nodejs.org/en/)
 - [Npm](https://www.npmjs.com/)
 - [Yarn](https://yarnpkg.com/lang/en/)
 
-## :checkered_flag: Starting ##
+## :checkered_flag: Starting
 
 ```bash
 # Clone this project
@@ -73,10 +69,12 @@ $ yarn dev
 
 # The server will initialize in the <http://localhost:3000>
 ```
-## :point_right: Figma ##
-- [Figma](https://www.figma.com/file/Kc8HVxwGUB0BrApZrPY6jk/Ignite-Shop-2.0-(Copy)?node-id=0%3A1&t=scE5guMtOlnqQvnf-1)
 
-## :framed_picture: Images ##
+## :point_right: Figma
+
+- [Figma](<https://www.figma.com/file/Kc8HVxwGUB0BrApZrPY6jk/Ignite-Shop-2.0-(Copy)?node-id=0%3A1&t=scE5guMtOlnqQvnf-1>)
+
+## :framed_picture: Images
 
 <h1 align="center">
     <img alt="Cover" src = "./.github/images/cover.png" />
